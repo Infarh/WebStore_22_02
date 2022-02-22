@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+var greetings = app.Configuration["ServerGreetings"];
+app.MapGet("/", () => greetings);
 
 app.Run();
