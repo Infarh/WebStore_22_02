@@ -1,21 +1,28 @@
-﻿<!DOCTYPE html>
+﻿<partial name="Partial/_Slider"/>
 
-<html>
-<head>
-    <title>Главная страница</title>
-</head>
+<section>
+    <div class="container">
+        <p>
+            <a asp-controller="Home"
+               asp-action="Sum"
+               asp-route-a="5" 
+               asp-route-b="7">
+                Сложить два числа
+            </a>
+        </p>
 
-<body>
-<h3>Заголовок</h3>
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSideBar"/>
+            </div>
 
-<p>Привет из первого представления!</p>
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/_Products"/>
 
-<p>
-    <a href="~/home/employees">Список сотрудников</a>
-</p>
+                <partial name="Partial/_CategoryTab"/>
 
-<p>
-    <img src="/qr/code?str=QWE" width="180"/>
-</p>
-</body>
-</html>
+                <partial name="Partial/_RecomendedItems"/>
+            </div>
+        </div>
+    </div>
+</section>

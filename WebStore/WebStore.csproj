@@ -4,11 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
   </ItemGroup>
 
