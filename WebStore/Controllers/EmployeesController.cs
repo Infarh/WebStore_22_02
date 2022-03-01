@@ -1,28 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using WebStore.Models;
+using WebStore.Services.Interfaces;
 
 namespace WebStore.Controllers;
 
 //[Route("Staff/{action=Index}/{id?}")]
 public class EmployeesController : Controller
 {
-    private static readonly List<Employee> __Employees = new()
+    private readonly IEmployeesData _EmployeesData;
+    private readonly ILogger<EmployeesController> _Logger;
+
+    public EmployeesController(IEmployeesData EmployeesData, ILogger<EmployeesController> Logger)
     {
-        new Employee { Id = 1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 23 },
-        new Employee { Id = 2, LastName = "Петров", FirstName = "Пётр", Patronymic = "Петрович", Age = 27 },
-        new Employee { Id = 3, LastName = "Сидоров", FirstName = "Сидор", Patronymic = "Сидорович", Age = 18 },
-    };
+        _EmployeesData = EmployeesData;
+        _Logger = Logger;
+    }
 
     public IActionResult Index()
     {
-        return View(__Employees);
+        var employees = _EmployeesData.GetAll();
+        return View(employees);
     }
 
     //[Route("~/employees/info({Id:int})")]
     public IActionResult Details(int Id)
     {
-        var employee = __Employees.FirstOrDefault(e => e.Id == Id);
+        var employee = _EmployeesData.GetById(Id);
 
         if(employee == null)
             return NotFound();
