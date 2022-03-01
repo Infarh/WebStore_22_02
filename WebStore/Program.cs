@@ -1,3 +1,5 @@
+using WebStore.Infrastructure.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -23,6 +25,8 @@ app.MapGet("/throw", () =>
 app.MapGet("/greetings", () => app.Configuration["ServerGreetings"]);
 
 app.MapDefaultControllerRoute();
+
+app.UseMiddleware<TestMiddleware>();
 
 app.MapControllerRoute(
     name: "ActionRoute",
