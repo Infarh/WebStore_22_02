@@ -10,6 +10,7 @@
             <th>Отчество</th>
             <th>Возраст</th>
             <th>Ф.И.О.</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +25,11 @@
                 <td>
                     <a asp-controller="Employees" asp-action="Details" asp-route-Id="@employee.Id">
                         @employee.ShortName
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@employee.Id">
+                        <span class="fa fa-edit"></span>
                     </a>
                 </td>
             </tr>

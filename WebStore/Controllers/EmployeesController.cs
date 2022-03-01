@@ -2,6 +2,7 @@
 
 using WebStore.Models;
 using WebStore.Services.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers;
 
@@ -41,7 +42,38 @@ public class EmployeesController : Controller
 
     public IActionResult Edit(int id)
     {
-        return View();
+        var employee = _EmployeesData.GetById(id);
+        if (employee is null)
+            return NotFound();
+
+        var model = new EmployeesViewModel
+        {
+            Id = employee.Id,
+            LastName = employee.LastName,
+            FirstName = employee.FirstName,
+            Patronymic = employee.Patronymic,
+            ShortName = employee.ShortName,
+            Age = employee.Age,
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(EmployeesViewModel Model)
+    {
+        var employee = new Employee
+        {
+            Id = Model.Id,
+            LastName = Model.LastName,
+            FirstName = Model.FirstName,
+            Patronymic = Model.Patronymic,
+            Age = Model.Age,
+        };
+
+        _EmployeesData.Edit(employee);
+
+        return RedirectToAction(nameof(Index));
     }
 
     //public IActionResult Delete(int id)
