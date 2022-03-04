@@ -1,8 +1,6 @@
 ﻿using System.Text;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.VisualBasic;
 
-namespace WebStore.Models;
+namespace WebStore.Domain.Entities;
 
 public class Employee
 {
