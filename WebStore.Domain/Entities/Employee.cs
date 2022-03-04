@@ -1,16 +1,13 @@
 ﻿using System.Text;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.VisualBasic;
+using WebStore.Domain.Entities.Base;
 
-namespace WebStore.Models;
+namespace WebStore.Domain.Entities;
 
-public class Employee
+public class Employee : Entity
 {
-    public int Id { get; set; }
-
-    public string LastName { get; set; }
-    public string FirstName { get; set; }
-    public string Patronymic { get; set; }
+    public string LastName { get; set; } = null!;
+    public string FirstName { get; set; } = null!;
+    public string? Patronymic { get; set; }
 
     public string ShortName
     {

@@ -14,6 +14,7 @@ services.AddControllersWithViews(opt =>
 
 //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
 services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+services.AddScoped<IProductData, InMemoryProductData>();
 
 var app = builder.Build();
 
