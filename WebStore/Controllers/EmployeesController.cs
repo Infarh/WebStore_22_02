@@ -64,6 +64,11 @@ public class EmployeesController : Controller
     [HttpPost]
     public IActionResult Edit(EmployeesViewModel Model)
     {
+        if (Model.LastName == "Иванов" && Model.Age < 21)
+            ModelState.AddModelError("", "Иванов должен быть старше 21 года");
+
+        if (!ModelState.IsValid) return View(Model);
+
         var employee = new Employee
         {
             Id = Model.Id,
