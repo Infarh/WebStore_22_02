@@ -20,9 +20,9 @@ var configuration = builder.Configuration;
 services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(configuration.GetConnectionString("SqlServer")));
 services.AddTransient<IDbInitializer, DbInitializer>();
 
-//services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
 services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
-services.AddScoped<IProductData, InMemoryProductData>();
+//services.AddScoped<IProductData, InMemoryProductData>();
+services.AddScoped<IProductData, SqlProductData>();
 
 var app = builder.Build();
 
