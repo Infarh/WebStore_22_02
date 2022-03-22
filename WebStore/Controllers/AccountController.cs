@@ -38,12 +38,20 @@ public class AccountController : Controller
         var creation_result = await _UserManager.CreateAsync(user, Model.Password);
         if (creation_result.Succeeded)
         {
+            _Logger.LogInformation("Пользователь {0} зарегистрирован", Model.UserName);
+            //_Logger.LogInformation($"Пользователь {Model.UserName} зарегистрирован"); // так делать не надо!!!
+
             await _SignInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
         }
 
         foreach (var error in creation_result.Errors)
             ModelState.AddModelError("", error.Description);
+
+        var error_info = string.Join(", ", creation_result.Errors.Select(e => e.Description));
+        _Logger.LogWarning("Ошибка при регистрации пользователя {0}: {1}",
+            Model.UserName,
+            error_info);
 
         return View(Model);
     }
@@ -65,6 +73,8 @@ public class AccountController : Controller
 
         if (login_result.Succeeded)
         {
+            _Logger.LogInformation("Пользователь {0} успешно вошёл в систему", Model.UserName);
+
             //return Redirect(Model.ReturnUrl); // Не безопасно!!!
 
             //if(Url.IsLocalUrl(Model.ReturnUrl))
@@ -84,12 +94,19 @@ public class AccountController : Controller
 
         ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
 
+        _Logger.LogWarning("Ошибка входа пользователя {0}", Model.UserName);
+
         return View(Model);
     }
 
     public async Task<IActionResult> Logout()
     {
+        var user_name = User.Identity!.Name;
+
         await _SignInManager.SignOutAsync();
+
+        _Logger.LogInformation("Пользователь {0} вышел из системы", user_name);
+
         return RedirectToAction("Index", "Home");
     }
 
