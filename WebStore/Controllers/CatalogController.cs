@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -27,13 +28,7 @@ public class CatalogController: Controller
             BrandId = BrandId,
             Products = products
                .OrderBy(p => p.Order)
-               .Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl,
-                }),
+               .ToView()!,
         });
     }
 
@@ -44,12 +39,6 @@ public class CatalogController: Controller
         if (product is null)
             return NotFound();
 
-        return View(new ProductViewModel
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            ImageUrl = product.ImageUrl,
-        });
+        return View(product.ToView());
     }
 }
