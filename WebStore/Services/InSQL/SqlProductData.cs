@@ -35,11 +35,16 @@ public class SqlProductData : IProductData
            .Include(p => p.Section)
            .Include(p => p.Brand);
 
-        if (Filer?.SectionId is { } section_id)
-            query = query.Where(p => p.SectionId == section_id);
+        if (Filer?.Ids?.Length > 0)
+            query = query.Where(product => Filer.Ids.Contains(product.Id));
+        else
+        {
+            if (Filer?.SectionId is { } section_id)
+                query = query.Where(p => p.SectionId == section_id);
 
-        if (Filer?.BrandId is { } brand_id)
-            query = query.Where(p => p.BrandId == brand_id);
+            if (Filer?.BrandId is { } brand_id)
+                query = query.Where(p => p.BrandId == brand_id);
+        }
 
         return query;
     }
