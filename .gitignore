@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 **/wwwroot/lib
+**/wwwroot/css/site.css
+**/wwwroot/css/site.*.css
+**/wwwroot/js/site.*
