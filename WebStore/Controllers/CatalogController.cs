@@ -46,7 +46,10 @@ public class CatalogController: Controller
 
         return View(new ProductViewModel
         {
-
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            ImageUrl = product.ImageUrl,
         });
     }
 }

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
@@ -63,6 +64,9 @@ services.ConfigureApplicationCookie(opt =>
 services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
 //services.AddScoped<IProductData, InMemoryProductData>();
 services.AddScoped<IProductData, SqlProductData>();
+
+//services.AddAutoMapper(Assembly.GetEntryAssembly());
+services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
