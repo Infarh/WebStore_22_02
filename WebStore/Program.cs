@@ -16,8 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 services.AddControllersWithViews(opt =>
 {
-    opt.Conventions.Add(new TestConvention());
-    opt.Conventions.Add(new AddAreasControllerRoute());
+    //opt.Conventions.Add(new TestConvention());
+    //opt.Conventions.Add(new AddAreasControllerRoute());
 });
 
 var configuration = builder.Configuration;
@@ -112,10 +112,10 @@ app.UseMiddleware<TestMiddleware>();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-        name: "ActionRoute",
-        pattern: "{controller}.{action}({a}, {b})"
-    );
+    //endpoints.MapControllerRoute(
+    //    name: "ActionRoute",
+    //    pattern: "{controller}.{action}({a}, {b})"
+    //);
 
     endpoints.MapControllerRoute(
         name: "areas",
@@ -124,8 +124,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 app.Run();
