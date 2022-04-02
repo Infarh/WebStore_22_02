@@ -5,7 +5,7 @@ using WebStore.Services.Interfaces;
 
 namespace WebStore.Areas.Admin.Controllers;
 
-[Area("Admin"), Authorize(Roles = Role.Adinistrators)]
+[/*Area("Admin"), */Authorize(Roles = Role.Adinistrators)]
 public class ProductsController : Controller
 {
     private readonly IProductData _ProductData;

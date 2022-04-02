@@ -17,7 +17,7 @@ var services = builder.Services;
 services.AddControllersWithViews(opt =>
 {
     //opt.Conventions.Add(new TestConvention());
-    //opt.Conventions.Add(new AddAreasControllerRoute());
+    opt.Conventions.Add(new AddAreasControllerRoute());
 });
 
 var configuration = builder.Configuration;
@@ -110,7 +110,6 @@ app.MapGet("/throw", () =>
 });
 
 app.MapGet("/greetings", () => app.Configuration["ServerGreetings"]);
-
 
 app.UseMiddleware<TestMiddleware>();
 
