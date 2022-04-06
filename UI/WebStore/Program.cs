@@ -8,7 +8,7 @@ using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Services;
 using WebStore.Services.InMemory;
-using WebStore.Services.InSQL;
+using WebStore.Services.Services.InSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
