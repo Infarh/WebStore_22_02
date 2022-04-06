@@ -1,8 +1,10 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
+using WebStore.Infrastructure.AuthorizationPolicies;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Services;
@@ -73,6 +75,12 @@ services.ConfigureApplicationCookie(opt =>
     opt.AccessDeniedPath = "/Account/AccessDenied";
 
     opt.SlidingExpiration = true;
+});
+
+services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("AdminAuthorization", policy => policy.Requirements.Add(new AdminAuthorizationPolicy(Role.Adinistrators)));
+    //opt.AddPolicy("AdminAuthorizationPolicy", policy => policy.RequireRole(Role.Adinistrators));
 });
 
 services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
