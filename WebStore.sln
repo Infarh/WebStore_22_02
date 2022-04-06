@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Tools", ".Tools", "{E78B14
 		ClearObj.bat = ClearObj.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{4A1BDEF1-A091-4868-8320-3BB625201797}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{7F609434-EE81-4861-AFCF-08C47ABCF1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F609434-EE81-4861-AFCF-08C47ABCF1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F609434-EE81-4861-AFCF-08C47ABCF1B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A1BDEF1-A091-4868-8320-3BB625201797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A1BDEF1-A091-4868-8320-3BB625201797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A1BDEF1-A091-4868-8320-3BB625201797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A1BDEF1-A091-4868-8320-3BB625201797}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{6C968A08-A56E-4026-93C5-108B1DD90928} = {D571F249-4CEA-4073-8D5A-C4F56D300E2F}
 		{20AFEEBB-95EF-4492-B362-D18E4C2754E2} = {D571F249-4CEA-4073-8D5A-C4F56D300E2F}
 		{7F609434-EE81-4861-AFCF-08C47ABCF1B5} = {7583019E-C67C-456B-AF6F-1011021658D5}
+		{4A1BDEF1-A091-4868-8320-3BB625201797} = {26C1A803-21E1-4281-8955-A28F7101B080}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DB1D016-D3B2-4E36-A816-C0A2E0724EBB}
