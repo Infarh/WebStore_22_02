@@ -36,4 +36,6 @@ public class Employee : Entity
             _Age = value;
         }
     }
+
+    public override string ToString() => $"[{Id}]{LastName} {FirstName} {Patronymic} {Age}";
 }
