@@ -16,18 +16,18 @@ namespace WebStore.WebAPI.Controllers
         public ValuesController(ILogger<ValuesController> Logger) => _Logger = Logger;
 
         [HttpGet]
-        public IEnumerable<string> GetAll() => _Values.Values;
+        public IActionResult GetAll() => Ok(_Values.Select(v => new { v.Key, v.Value }));
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{Id}")]
+        public IActionResult GetById(int Id)
         {
-            //if (!_Values.ContainsKey(id))
+            //if (!_Values.ContainsKey(Id))
             //    return NotFound();
-            //return Ok(_Values[id]);
+            //return Ok(_Values[Id]);
 
-            if (_Values.TryGetValue(id, out var value))
+            if (_Values.TryGetValue(Id, out var value))
                 return Ok(value);
-            return NotFound();
+            return NotFound(new { Id });
         }
 
         [HttpGet("count")]
@@ -43,7 +43,7 @@ namespace WebStore.WebAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id }, Value);
         }
 
-        [HttpPut("{id}")] // PUT -> http://localhost:5001/api/values
+        [HttpPut("{Id}")] // PUT -> http://localhost:5001/api/values
         public IActionResult Edit(int Id, [FromBody] string Value)
         {
             if (!_Values.ContainsKey(Id))
@@ -51,7 +51,7 @@ namespace WebStore.WebAPI.Controllers
 
             _Values[Id] = Value;
 
-            return Ok();
+            return Ok(new { Id, Value });
         }
 
         [HttpDelete("{Id}")] // DELETE -> http://localhost:5001/api/values/42
@@ -60,9 +60,10 @@ namespace WebStore.WebAPI.Controllers
             if (!_Values.ContainsKey(Id))
                 return NotFound();
 
+            var value = _Values[Id];
             _Values.Remove(Id);
 
-            return Ok();
+            return Ok(value);
         }
     }
 }

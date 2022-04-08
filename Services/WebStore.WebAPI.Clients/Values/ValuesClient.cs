@@ -9,11 +9,20 @@ public class ValuesClient : BaseClient, IValuesService
 {
     public ValuesClient(HttpClient Client) : base(Client, "api/values") { }
 
+    // ReSharper disable once UnusedParameter.Local
+    private static IEnumerable<T> ReadAsTT<T>(HttpContent content, T _)
+    {
+        return content.ReadFromJsonAsync<IEnumerable<T>>().Result!;
+    }
+
     public IEnumerable<string> GetValues()
     {
         var response = Http.GetAsync(Address).Result;
         if (response.IsSuccessStatusCode)
-            return response.Content.ReadFromJsonAsync<IEnumerable<string>>().Result!;
+            // ReSharper disable once HeuristicUnreachableCode
+#pragma warning disable CS0162
+            return ReadAsTT(response.Content, true ? null : new { Key = 0, Value = "123" }).Select(v => v.Value);
+#pragma warning restore CS0162
 
         return Enumerable.Empty<string>();
     }

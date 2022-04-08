@@ -5,8 +5,14 @@ services:
     container_name: MSSQL
     image: "mcr.microsoft.com/mssql/server:2019-latest"
 
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: Services/WebStore.WebAPI/Dockerfile
+
   webstore:
     image: ${DOCKER_REGISTRY-}webstore
     build:
       context: .
-      dockerfile: WebStore/Dockerfile
+      dockerfile: UI/WebStore/Dockerfile
