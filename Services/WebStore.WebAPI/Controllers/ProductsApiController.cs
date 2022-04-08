@@ -20,7 +20,7 @@ public class ProductsApiController : ControllerBase
     [HttpGet("sections")]   // GET -> http://localhost:5001/api/products/sections
     public IActionResult GetSections()
     {
-        var sections = _ProductData.GetSections();
+        var sections = _ProductData.GetSections().ToArray();
         return Ok(sections);
     }
 

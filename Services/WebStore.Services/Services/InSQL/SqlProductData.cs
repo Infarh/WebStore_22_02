@@ -18,13 +18,13 @@ public class SqlProductData : IProductData
         _Logger = Logger;
     }
 
-    public IEnumerable<Section> GetSections() => _db.Sections;
+    public IEnumerable<Section> GetSections() => _db.Sections.Include(b => b.Products);
 
     public Section? GetSectionById(int Id) => _db.Sections
        .Include(s => s.Products) // LEFT JOIN к [dbo].[Products]
        .FirstOrDefault(s => s.Id == Id);
 
-    public IEnumerable<Brand> GetBrands() => _db.Brands;
+    public IEnumerable<Brand> GetBrands() => _db.Brands.Include(b => b.Products);
 
     public Brand? GetBrandById(int Id) => _db.Brands
        .Include(b => b.Products)
