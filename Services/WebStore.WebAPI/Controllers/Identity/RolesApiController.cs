@@ -5,7 +5,7 @@ using WebStore.Interfaces;
 namespace WebStore.WebAPI.Controllers.Identity;
 
 [ApiController]
-[Route(WebAPIAddresses.Identity.Roles)]
+[Route(WebAPIAddresses.V1.Identity.Roles)]
 public class RolesApiController : ControllerBase
 {
 

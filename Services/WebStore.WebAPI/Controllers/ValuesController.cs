@@ -6,7 +6,7 @@ namespace WebStore.WebAPI.Controllers
 {
     //[Route("api/[controller]")] // http://localhost:5001/api/values
     [ApiController]
-    [Route(WebAPIAddresses.Values)] // http://localhost:5001/api/values
+    [Route(WebAPIAddresses.V1.Values)] // http://localhost:5001/api/values
     public class ValuesController : ControllerBase
     {
         private static readonly Dictionary<int, string> _Values = Enumerable.Range(1, 10)
