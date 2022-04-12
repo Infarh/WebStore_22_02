@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using WebStore.Domain.Entities;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 using WebStore.WebAPI.Clients.Base;
 
@@ -11,7 +12,7 @@ public class EmployeesClient : BaseClient, IEmployeesData
     private readonly ILogger<EmployeesClient> _Logger;
 
     public EmployeesClient(HttpClient Client, ILogger<EmployeesClient> Logger) 
-        : base(Client, "api/employees")
+        : base(Client, WebAPIAddresses.Employees)
     {
         _Logger = Logger;
     }
