@@ -7,7 +7,7 @@ using WebStore.Interfaces.Services;
 namespace WebStore.WebAPI.Controllers;
 
 [ApiController]
-[Route(WebAPIAddresses.V1.Values)]
+[Route(WebAPIAddresses.V1.Products)]
 public class ProductsApiController : ControllerBase
 {
     private readonly IProductData _ProductData;
