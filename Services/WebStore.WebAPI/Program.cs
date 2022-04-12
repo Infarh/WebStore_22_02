@@ -28,6 +28,8 @@ switch (db_connection_string_name)
         break;
 }
 
+services.AddTransient<IDbInitializer, DbInitializer>();
+
 services.AddIdentity<User, Role>(/*opt => opt.*/)
    .AddEntityFrameworkStores<WebStoreDB>()
    .AddDefaultTokenProviders();
@@ -62,6 +64,12 @@ services.AddSwaggerGen();
 #endregion
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    await db_initializer.InitializeAsync(RemoveBefore: false);
+}
 
 if (app.Environment.IsDevelopment())
 {
