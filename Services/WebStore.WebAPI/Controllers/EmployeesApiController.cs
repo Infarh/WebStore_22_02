@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using WebStore.Domain.Entities;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.WebAPI.Controllers;
 
+/// <summary>Сотрудники</summary>
 [ApiController]
-[Route("api/employees")]
+[Route(WebAPIAddresses.V1.Employees)]
+//[Produces("application/json")]
+//[Produces("application/xml")]
 public class EmployeesApiController : ControllerBase
 {
     private readonly IEmployeesData _EmployeesData;
@@ -18,7 +22,12 @@ public class EmployeesApiController : ControllerBase
         _Logger = Logger;
     }
 
+    /// <summary>Все сотрудники</summary>
+    /// <returns>Возвращает список всех сотрудников</returns>
+    /// <response code="200">Ok</response>
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Employee>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult GetAll()
     {
         var employees = _EmployeesData.GetAll();
@@ -27,7 +36,12 @@ public class EmployeesApiController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Сотрудник с заданным идентификатором</summary>
+    /// <param name="Id">Искомый идентификатор сотрудника</param>
+    /// <returns>Сотрудник с заданным идентификатором, либо <c>null</c> в случае его необнаружения</returns>
     [HttpGet("{Id:int}")]
+    [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetById(int Id)
     {
         var employee = _EmployeesData.GetById(Id);
@@ -37,7 +51,11 @@ public class EmployeesApiController : ControllerBase
         return Ok(employee);
     }
 
+    /// <summary>Добавление сотрудника</summary>
+    /// <param name="employee">Новый сотрудник</param>
+    /// <returns>Созданный сотрудник</returns>
     [HttpPost]
+    [ProducesResponseType(typeof(Employee), StatusCodes.Status201Created)]
     public IActionResult Add(Employee employee)
     {
         var id = _EmployeesData.Add(employee);
@@ -45,7 +63,11 @@ public class EmployeesApiController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { Id = id }, employee);
     }
 
+    /// <summary>Редактирование сотрудника</summary>
+    /// <param name="employee">Информация для редактирования сотрудника</param>
+    /// <returns>true если редактирование выполнено успешно</returns>
     [HttpPut]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     public IActionResult Edit(Employee employee)
     {
         var success = _EmployeesData.Edit(employee);
@@ -57,7 +79,12 @@ public class EmployeesApiController : ControllerBase
         return Ok(success);
     }
 
+    /// <summary>Удаление сотрудника</summary>
+    /// <param name="Id">Идентификатор удаляемого сотрудника</param>
+    /// <returns><c>true</c> если сотрудник был удалён</returns>
     [HttpDelete("{Id}")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status404NotFound)]
     public IActionResult Delete(int Id)
     {
         var result = _EmployeesData.Delete(Id);

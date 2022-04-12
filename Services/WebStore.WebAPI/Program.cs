@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
@@ -28,6 +29,8 @@ switch (db_connection_string_name)
         break;
 }
 
+services.AddTransient<IDbInitializer, DbInitializer>();
+
 services.AddIdentity<User, Role>(/*opt => opt.*/)
    .AddEntityFrameworkStores<WebStoreDB>()
    .AddDefaultTokenProviders();
@@ -55,13 +58,39 @@ services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
 services.AddScoped<IProductData, SqlProductData>();
 services.AddScoped<IOrderService, SqlOrderService>();
 
-services.AddControllers();
+services.AddControllers(opt =>
+{
+    opt.InputFormatters.Add(new XmlSerializerInputFormatter(opt));
+    opt.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+});
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(); 
+services.AddSwaggerGen(opt =>
+{
+    const string webstore_webapi_xml = "WebStore.WebAPI.xml";
+    const string webstore_domain_xml = "WebStore.Domain.xml";
+
+    const string debug_path = "bin/Debug/net6.0";
+
+    if(File.Exists(webstore_webapi_xml))
+        opt.IncludeXmlComments(webstore_webapi_xml);
+    else if(File.Exists(Path.Combine(debug_path, webstore_webapi_xml)))
+        opt.IncludeXmlComments(Path.Combine(debug_path, webstore_webapi_xml));
+
+    if (File.Exists(webstore_domain_xml))
+        opt.IncludeXmlComments(webstore_domain_xml);
+    else if (File.Exists(Path.Combine(debug_path, webstore_domain_xml)))
+        opt.IncludeXmlComments(Path.Combine(debug_path, webstore_domain_xml));
+});
 
 #endregion
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    await db_initializer.InitializeAsync(RemoveBefore: false);
+}
 
 if (app.Environment.IsDevelopment())
 {
