@@ -23,6 +23,8 @@ public class EmployeesApiController : ControllerBase
     /// <summary>Все сотрудники</summary>
     /// <returns>Возвращает список всех сотрудников</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Employee>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult GetAll()
     {
         var employees = _EmployeesData.GetAll();
@@ -35,6 +37,8 @@ public class EmployeesApiController : ControllerBase
     /// <param name="Id">Искомый идентификатор сотрудника</param>
     /// <returns>Сотрудник с заданным идентификатором, либо <c>null</c> в случае его необнаружения</returns>
     [HttpGet("{Id:int}")]
+    [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetById(int Id)
     {
         var employee = _EmployeesData.GetById(Id);
@@ -48,6 +52,7 @@ public class EmployeesApiController : ControllerBase
     /// <param name="employee">Новый сотрудник</param>
     /// <returns>Созданный сотрудник</returns>
     [HttpPost]
+    [ProducesResponseType(typeof(Employee), StatusCodes.Status201Created)]
     public IActionResult Add(Employee employee)
     {
         var id = _EmployeesData.Add(employee);
@@ -59,6 +64,7 @@ public class EmployeesApiController : ControllerBase
     /// <param name="employee">Информация для редактирования сотрудника</param>
     /// <returns>true если редактирование выполнено успешно</returns>
     [HttpPut]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     public IActionResult Edit(Employee employee)
     {
         var success = _EmployeesData.Edit(employee);
@@ -74,6 +80,8 @@ public class EmployeesApiController : ControllerBase
     /// <param name="Id">Идентификатор удаляемого сотрудника</param>
     /// <returns><c>true</c> если сотрудник был удалён</returns>
     [HttpDelete("{Id}")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status404NotFound)]
     public IActionResult Delete(int Id)
     {
         var result = _EmployeesData.Delete(Id);
