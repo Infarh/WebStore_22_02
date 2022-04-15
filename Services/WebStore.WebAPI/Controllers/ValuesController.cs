@@ -86,5 +86,11 @@ namespace WebStore.WebAPI.Controllers
 
             return Ok(new { Value = value });
         }
+
+        [HttpGet("throw/{Message}")]
+        public void ThrowException(string? Message)
+        {
+            throw new ApplicationException(Message ?? "Controller error");
+        }
     }
 }
