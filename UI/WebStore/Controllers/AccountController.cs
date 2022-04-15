@@ -39,7 +39,7 @@ public class AccountController : Controller
             UserName = Model.UserName,
         };
 
-        using (_Logger.BeginScope("Регистрация нового пользователя {0}", user.UserName))
+        using (_Logger.BeginScope("Регистрация нового пользователя {0}", user))
         {
             var creation_result = await _UserManager.CreateAsync(user, Model.Password);
             if (creation_result.Succeeded)
