@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using WebStore.Interfaces.Services;
 using WebStore.Logging;
 using WebStore.Services.InMemory;
 using WebStore.Services.Services.InSQL;
+using WebStore.WebAPI.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddLog4Net();
@@ -99,6 +101,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseAuthorization();
 
