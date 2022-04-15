@@ -10,6 +10,7 @@ COPY ["Services/WebStore.WebAPI/WebStore.WebAPI.csproj", "Services/WebStore.WebA
 COPY ["Services/WebStore.Services/WebStore.Services.csproj", "Services/WebStore.Services/"]
 COPY ["Data/WebStore.DAL/WebStore.DAL.csproj", "Data/WebStore.DAL/"]
 COPY ["Common/WebStore.Domain/WebStore.Domain.csproj", "Common/WebStore.Domain/"]
+COPY ["Common/WebStore.Logging/WebStore.Logging.csproj", "Common/WebStore.Logging/"]
 COPY ["Services/WebStore.Interfaces/WebStore.Interfaces.csproj", "Services/WebStore.Interfaces/"]
 COPY ["Data/WebStore.DAL.Sqlite/WebStore.DAL.Sqlite.csproj", "Data/WebStore.DAL.Sqlite/"]
 RUN dotnet restore "Services/WebStore.WebAPI/WebStore.WebAPI.csproj"
