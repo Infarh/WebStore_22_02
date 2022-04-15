@@ -1,4 +1,6 @@
-using Microsoft.AspNetCore.Identity;using Polly;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging.Console;
+using Polly;
 using Polly.Extensions.Http;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
@@ -11,6 +13,18 @@ using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
 
 var builder = WebApplication.CreateBuilder(args);
+//builder.Host.ConfigureLogging(log => 
+//    log
+//       .ClearProviders()
+//       .AddConsole(opt => opt.FormatterName = "json")
+//       .AddDebug()
+//       .AddEventLog(opt =>
+//        {
+//            opt.LogName = "WebStore";
+//            opt.SourceName = "GB";
+//        })
+//       .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Warning)
+//    );
 
 var services = builder.Services;
 services.AddControllersWithViews();
