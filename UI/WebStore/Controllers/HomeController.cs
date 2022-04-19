@@ -24,6 +24,8 @@ public class HomeController : Controller
 
     public IActionResult ContentString(string Id = "-id-")
     {
+        if (Id is null) 
+            throw new ArgumentNullException(nameof(Id));
         return Content($"content: {Id}");
     }
 
