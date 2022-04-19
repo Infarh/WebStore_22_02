@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Controllers;
 
@@ -24,6 +24,8 @@ public class HomeController : Controller
 
     public IActionResult ContentString(string Id = "-id-")
     {
+        if (Id is null) 
+            throw new ArgumentNullException(nameof(Id));
         return Content($"content: {Id}");
     }
 
