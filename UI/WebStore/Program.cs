@@ -11,6 +11,7 @@ using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Logging;
 using WebStore.Services;
+using WebStore.Services.Services;
 using WebStore.WebAPI.Clients.Employees;
 using WebStore.WebAPI.Clients.Identity;
 using WebStore.WebAPI.Clients.Orders;
