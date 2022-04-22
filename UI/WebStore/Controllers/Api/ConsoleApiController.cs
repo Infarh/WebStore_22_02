@@ -6,6 +6,7 @@ namespace WebStore.Controllers.Api;
 
 #if DEBUG
 
+/// <summary>Контроллера управления консолью</summary>
 [ApiController, Route("api/console")]
 public class ConsoleApiController : ControllerBase
 {
