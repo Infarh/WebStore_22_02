@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Domain;
+using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
@@ -30,24 +31,31 @@ public class SqlProductData : IProductData
        .Include(b => b.Products)
        .FirstOrDefault(b => b.Id == Id);
 
-    public IEnumerable<Product> GetProducts(ProductFilter? Filer = null)
+    public Page<Product> GetProducts(ProductFilter? Filter = null)
     {
         IQueryable<Product> query = _db.Products
            .Include(p => p.Section)
            .Include(p => p.Brand);
 
-        if (Filer?.Ids?.Length > 0)
-            query = query.Where(product => Filer.Ids.Contains(product.Id));
+        if (Filter?.Ids?.Length > 0)
+            query = query.Where(product => Filter.Ids.Contains(product.Id));
         else
         {
-            if (Filer?.SectionId is { } section_id)
+            if (Filter?.SectionId is { } section_id)
                 query = query.Where(p => p.SectionId == section_id);
 
-            if (Filer?.BrandId is { } brand_id)
+            if (Filter?.BrandId is { } brand_id)
                 query = query.Where(p => p.BrandId == brand_id);
         }
 
-        return query;
+        var count = query.Count();
+
+        if (Filter is { PageSize: > 0 and var page_size, PageNumber: > 0 and var page })
+            query = query
+               .Skip((page - 1) * page_size)
+               .Take(page_size);
+
+        return new(query, Filter?.PageNumber ?? 0, Filter?.PageSize ?? 0, count);
     }
 
     public Product? GetProductById(int Id) => _db.Products
