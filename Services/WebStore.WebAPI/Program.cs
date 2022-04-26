@@ -42,7 +42,8 @@ services.Configure<IdentityOptions>(opt =>
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
 });
 
-services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+//services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+services.AddScoped<IEmployeesData, SqlEmployeesData>();
 services.AddScoped<IProductData, SqlProductData>();
 services.AddScoped<IOrderService, SqlOrderService>();
 
