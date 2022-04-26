@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
 
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
@@ -20,6 +21,29 @@ public class EmployeesApiController : ControllerBase
     {
         _EmployeesData = EmployeesData;
         _Logger = Logger;
+    }
+
+    [HttpGet("count")]
+    public async Task<IActionResult> GetCount()
+    {
+        var count = await _EmployeesData.CountAsync();
+        return Ok(count);
+    }
+
+    [HttpGet("({Skip}:{Take})")]
+    public async Task<IActionResult> Get(int Skip, int Take)
+    {
+        var items = await _EmployeesData.GetAsync(Skip, Take);
+        if (items.Any())
+            return Ok(items);
+        return NoContent();
+    }
+
+    [HttpGet("page({PageIndex}:{PageSize})")]
+    public async Task<IActionResult> GetPage(int PageIndex, int PageSize)
+    {
+        var page = await _EmployeesData.GetPageAsync(PageIndex, PageSize);
+        return Ok(page);
     }
 
     /// <summary>Все сотрудники</summary>
