@@ -13,7 +13,7 @@
     addToCart: function(e) {
         e.preventDefault();
 
-        const button = $(this);
+        var button = $(this);
         const id = button.data("id");
 
         $.get(Cart._properties.addToCartLink + "/" + id)
@@ -27,7 +27,7 @@
     },
 
     showToolTip: function(button) {
-        button.tooltip({ title: "Добавлено в корзину" }.tooltip("show"));
+        button.tooltip({ title: "Добавлено в корзину" }).tooltip("show");
         setTimeout(function() {
                 button.tooltip("destroy");
             },
