@@ -16,6 +16,7 @@
         if (button.parent().hasClass("active")) return;
 
         const container = $("#catalog-container");
+        container.LoadingOverlay("show");
 
         const data = button.data();
         let query = "";
@@ -34,5 +35,7 @@
         } else {
             console.log("clickOnPage fail" + response.status);
         }
+
+        container.LoadingOverlay("hide");
     }
 }
