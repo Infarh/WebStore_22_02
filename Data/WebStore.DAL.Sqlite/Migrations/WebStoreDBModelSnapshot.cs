@@ -15,7 +15,7 @@ namespace WebStore.DAL.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -138,6 +138,31 @@ namespace WebStore.DAL.Sqlite.Migrations
                         .IsUnique();
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entities.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("WebStore.Domain.Entities.Identity.Role", b =>

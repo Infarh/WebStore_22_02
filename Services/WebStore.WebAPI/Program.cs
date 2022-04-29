@@ -42,7 +42,8 @@ services.Configure<IdentityOptions>(opt =>
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
 });
 
-services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+//services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+services.AddScoped<IEmployeesData, SqlEmployeesData>();
 services.AddScoped<IProductData, SqlProductData>();
 services.AddScoped<IOrderService, SqlOrderService>();
 
@@ -77,7 +78,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    await db_initializer.InitializeAsync(RemoveBefore: false);
+    await db_initializer.InitializeAsync(RemoveBefore: true);
 }
 
 if (app.Environment.IsDevelopment())
